@@ -1,0 +1,9 @@
+{
+  "name": "sendLike",
+  "version": "1.0.0",
+  "description": "给搭子今日的某条记录点赞（每天限 1 次）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

@@ -1,0 +1,94 @@
+<view class="page">
+  <view class="nav-bar">
+    <view class="nav-back" bindtap="onBack">‹</view>
+    <view class="nav-title">历史记录</view>
+    <view class="nav-placeholder"></view>
+  </view>
+
+  <!-- 统计卡 -->
+  <view class="stat-card">
+    <view class="stat-item">
+      <view class="stat-num num">{{stats.total || 0}}</view>
+      <view class="stat-label">总打卡</view>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <view class="stat-num num">{{stats.onTime || 0}}</view>
+      <view class="stat-label">按时</view>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <view class="stat-num num">{{stats.late || 0}}</view>
+      <view class="stat-label">延时</view>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <view class="stat-num num">{{stats.onTimeRate || 0}}%</view>
+      <view class="stat-label">按时率</view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty" wx:if="{{groupedList.length === 0 && !loading}}">
+    <view class="empty-emoji">📒</view>
+    <view class="empty-title">还没有打卡记录</view>
+    <view class="empty-sub">点击下方"+"开始第一餐吧～</view>
+  </view>
+
+  <!-- 按日分组 -->
+  <view wx:for="{{groupedList}}"
+        wx:key="date"
+        wx:for-item="group"
+        class="date-group">
+    <view class="date-group-header">
+      <text>{{group.dateLabel}}</text>
+      <text class="date-group-count">{{group.list.length}} 餐</text>
+    </view>
+    <view wx:for="{{group.list}}"
+          wx:key="_id"
+          wx:for-item="record"
+          class="meal-card {{record.status}}"
+          data-id="{{record._id}}"
+          bindtap="onTapRecord">
+      <view class="main-cat-badge {{record.mainCategory}}">
+        {{record.mainCategory === 'meal' ? '🍱 正餐' : '🍔 速食'}}
+      </view>
+      <view class="card-left">
+        <view wx:if="{{record.imageUrl}}" class="card-thumb">
+          <image src="{{record.imageUrl}}" mode="aspectFill" class="card-thumb-img"/>
+        </view>
+        <view wx:else class="card-thumb card-thumb-emoji">{{mealEmojiMap[record.mealType]}}</view>
+      </view>
+      <view class="card-body">
+        <view class="card-top">
+          <text class="meal-name">{{mealLabelMap[record.mealType]}} {{record.time}}</text>
+        </view>
+        <view class="tag-row">
+          <view wx:for="{{record.foodCats}}"
+                wx:for-item="cat"
+                wx:key="*this"
+                class="tag-cat cat-{{cat}}">
+            {{foodCatMap[cat].emoji}} {{foodCatMap[cat].label}}
+          </view>
+        </view>
+        <view wx:if="{{record.note}}" class="record-note">"{{record.note}}"</view>
+        <view class="card-bottom">
+          <view class="status-badge {{record.status}}">
+            {{record.status === 'on_time' ? '🟢 按时' : '🟡 延时'}}
+          </view>
+          <text class="pill-link">查看详情 ›</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="load-more" wx:if="{{hasMore && groupedList.length > 0}}">
+    <view class="load-more-btn" bindtap="onLoadMore">加载更多</view>
+  </view>
+  <view class="load-end" wx:if="{{!hasMore && groupedList.length > 0}}">— 已经到底啦 —</view>
+
+  <!-- FAB -->
+  <view class="fab" bindtap="onTapFab">
+    <text class="fab-icon">+</text>
+  </view>
+</view>

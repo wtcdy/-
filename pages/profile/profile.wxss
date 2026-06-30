@@ -1,0 +1,101 @@
+/* pages/profile/profile.wxss */
+.page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding-bottom: 60rpx;
+}
+
+.header {
+  position: relative;
+  padding: 0 0 48rpx;
+  margin-bottom: 32rpx;
+}
+.header-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 360rpx;
+  background: linear-gradient(135deg, #FFE3E8 0%, #E5D9F2 50%, #D6E5F5 100%);
+  border-bottom-left-radius: 60rpx;
+  border-bottom-right-radius: 60rpx;
+  z-index: 0;
+}
+.header-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 60rpx 32rpx 0;
+}
+.avatar-wrap {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 6rpx solid #fff;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
+}
+.avatar-img { width: 100%; height: 100%; }
+.avatar-default {
+  font-size: 64rpx;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+.user-name {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-top: 20rpx;
+  letter-spacing: 2rpx;
+}
+.user-meta {
+  font-size: 24rpx;
+  color: var(--color-text);
+  margin-top: 8rpx;
+}
+.meta-mute { color: var(--color-subtext); }
+
+/* 入口卡 */
+.entry-card {
+  margin: 0 32rpx 24rpx;
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.entry-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28rpx 32rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.04);
+}
+.entry-item:last-child { border-bottom: none; }
+.entry-item:active { background: rgba(0, 0, 0, 0.02); }
+.entry-left {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+.entry-emoji { font-size: 36rpx; }
+.entry-name {
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+.entry-arrow {
+  font-size: 32rpx;
+  color: var(--color-subtext);
+}
+
+.footer-tip {
+  text-align: center;
+  font-size: 22rpx;
+  color: var(--color-subtext);
+  margin-top: 60rpx;
+  line-height: 1.8;
+  letter-spacing: 1rpx;
+  opacity: 0.7;
+}

@@ -1,0 +1,86 @@
+<view class="page">
+  <!-- 头部 -->
+  <view class="header" wx:if="{{partner}}">
+    <view class="header-bg"></view>
+    <view class="header-content">
+      <view class="avatar-lg">
+        <image wx:if="{{partner.avatarUrl}}" src="{{partner.avatarUrl}}" class="avatar-img"/>
+        <text wx:else class="avatar-default">{{partner.nickName ? partner.nickName[0] : 'TA'}}</text>
+      </view>
+      <view class="header-name">{{partner.nickName || '搭子'}}</view>
+      <view class="header-paired">💕 已配对 · {{pairedDays}} 天</view>
+    </view>
+  </view>
+
+  <!-- 无配对空状态 -->
+  <view class="empty-wrap" wx:if="{{!partner}}">
+    <view class="empty-emoji">💌</view>
+    <view class="empty-title">还没有搭子</view>
+    <view class="empty-sub">配对一位朋友，互相监督吃饭吧～</view>
+    <view class="empty-cta" bindtap="onGoPair">✨ 去配对 ✨</view>
+  </view>
+
+  <!-- 本周搭子打卡（5 工作日） -->
+  <block wx:if="{{partner}}">
+    <view class="week-card">
+      <view class="week-header">
+        <text>TA 本周的打卡</text>
+        <text class="week-range">{{weekRangeText}}</text>
+      </view>
+      <view class="week-grid">
+        <view wx:for="{{weekDays}}"
+              wx:key="date"
+              class="week-day">
+          <view class="day-name">{{item.weekday}}</view>
+          <view class="day-dot {{item.status}}"></view>
+          <view class="day-date">{{item.dateLabel}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- TA 今日的干饭 -->
+    <view class="section">
+      <view class="section-title">
+        <text>TA 今日的干饭</text>
+        <text class="section-count">{{todayRecords.length}} 条</text>
+      </view>
+      <view wx:if="{{todayRecords.length === 0}}" class="empty-mini">今天还没打卡～</view>
+      <view wx:for="{{todayRecords}}"
+            wx:key="_id"
+            class="meal-card {{item.status}}">
+        <view class="card-left">
+          <view wx:if="{{item.imageUrl}}" class="card-thumb">
+            <image src="{{item.imageUrl}}" mode="aspectFill" class="card-thumb-img"/>
+          </view>
+          <view wx:else class="card-thumb card-thumb-emoji">{{mealEmojiMap[item.mealType] || '🍱'}}</view>
+        </view>
+        <view class="card-body">
+          <view class="card-top">
+            <text class="meal-name">{{mealLabelMap[item.mealType] || '餐'}} {{item.time}}</text>
+            <view class="main-cat-pill {{item.mainCategory}}">
+              {{item.mainCategory === 'meal' ? '🍱 正餐' : '🍔 速食'}}
+            </view>
+          </view>
+          <view class="tag-row">
+            <view wx:for="{{item.foodCats}}"
+                  wx:for-item="cat"
+                  wx:key="*this"
+                  class="tag-cat cat-{{cat}}">
+              {{foodCatMap[cat].emoji}} {{foodCatMap[cat].label}}
+            </view>
+          </view>
+          <view class="card-bottom">
+            <view class="status-badge {{item.status}}">
+              {{item.status === 'on_time' ? '🟢 按时' : '🟡 延时'}}
+            </view>
+            <view class="like-btn" data-id="{{item._id}}" bindtap="onSendLike">
+              {{likedToday ? '💗 已点赞' : '🤍 加油'}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="unbind-link" bindtap="onUnbind">解除配对</view>
+  </block>
+</view>

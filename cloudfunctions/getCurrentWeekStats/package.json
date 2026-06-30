@@ -1,0 +1,9 @@
+{
+  "name": "getCurrentWeekStats",
+  "version": "1.0.0",
+  "description": "首页周小结数据",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

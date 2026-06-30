@@ -1,0 +1,96 @@
+<view class="page">
+  <view class="nav-bar">
+    <view class="nav-back" bindtap="onBack">‹</view>
+    <view class="nav-title">本周总结</view>
+    <view class="nav-placeholder"></view>
+  </view>
+
+  <!-- 周范围 -->
+  <view class="week-info">
+    <view class="week-range">{{summary.rangeText || '本周'}}</view>
+    <view class="week-sub">工作日统计 · 仅 5 天</view>
+  </view>
+
+  <!-- 大圆环 -->
+  <view class="ring-card">
+    <view class="ring-wrap">
+      <view class="ring-num num">{{summary.onTimeRate || 0}}<text class="ring-pct">%</text></view>
+      <view class="ring-label">按时率</view>
+    </view>
+    <view class="ring-stats">
+      <view class="ring-stat">
+        <view class="ring-dot on-time"></view>
+        <text class="ring-stat-num num">{{summary.onTime || 0}}</text>
+        <text class="ring-stat-label">按时</text>
+      </view>
+      <view class="ring-stat">
+        <view class="ring-dot late"></view>
+        <text class="ring-stat-num num">{{summary.late || 0}}</text>
+        <text class="ring-stat-label">延时</text>
+      </view>
+      <view class="ring-stat">
+        <view class="ring-dot missed"></view>
+        <text class="ring-stat-num num">{{summary.missed || 0}}</text>
+        <text class="ring-stat-label">缺卡</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 正餐/速食分布 -->
+  <view class="section">
+    <view class="section-title"><text>正餐 / 速食</text></view>
+    <view class="dist-card">
+      <view class="dist-row">
+        <text class="dist-emoji">🍱</text>
+        <text class="dist-name">正餐</text>
+        <view class="dist-bar">
+          <view class="dist-fill meal" style="width: {{summary.mealRate || 0}}%"></view>
+        </view>
+        <text class="dist-val num">{{summary.meal || 0}} · {{summary.mealRate || 0}}%</text>
+      </view>
+      <view class="dist-row">
+        <text class="dist-emoji">🍔</text>
+        <text class="dist-name">速食</text>
+        <view class="dist-bar">
+          <view class="dist-fill fast" style="width: {{summary.fastRate || 0}}%"></view>
+        </view>
+        <text class="dist-val num">{{summary.fast || 0}} · {{summary.fastRate || 0}}%</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 5 大食物类别 -->
+  <view class="section">
+    <view class="section-title"><text>🏆 你最爱的</text></view>
+    <view class="top-card">
+      <view wx:for="{{summary.topCats || []}}"
+            wx:key="value"
+            class="top-row">
+        <text class="top-emoji">{{item.emoji}}</text>
+        <text class="top-name">{{item.label}}</text>
+        <view class="top-bar">
+          <view class="top-fill cat-{{item.value}}" style="width: {{item.percent}}%"></view>
+        </view>
+        <text class="top-val num">{{item.count}} 次 · {{item.percent}}%</text>
+      </view>
+      <view wx:if="{{!summary.topCats || summary.topCats.length === 0}}" class="empty-mini">
+        本周还没有打卡～
+      </view>
+    </view>
+  </view>
+
+  <!-- 5 工作日打卡 -->
+  <view class="section">
+    <view class="section-title"><text>📅 工作日打卡</text></view>
+    <view class="weekday-card">
+      <view wx:for="{{summary.weekDays || []}}"
+            wx:key="date"
+            class="weekday">
+        <view class="weekday-name">{{item.weekday}}</view>
+        <view class="weekday-date">{{item.dateLabel}}</view>
+        <view class="weekday-dot {{item.status}}"></view>
+        <view class="weekday-count num">{{item.mealCount}}</view>
+      </view>
+    </view>
+  </view>
+</view>

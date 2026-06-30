@@ -1,0 +1,9 @@
+{
+  "name": "pairCreate",
+  "version": "1.0.0",
+  "description": "发起配对（生成 6 位配对码，10 分钟有效）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "getRecords",
+  "version": "1.0.0",
+  "description": "获取历史打卡记录（v3.1 含 5 大食物类别）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

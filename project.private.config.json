@@ -1,0 +1,15 @@
+{
+  "miniprogramRoot": "./",
+  "projectname": "ganfan-mini",
+  "setting": {
+    "compileHotReLoad": true,
+    "urlCheck": false
+  },
+  "condition": {
+    "miniprogram": {
+      "list": [
+        { "name": "首页", "pathName": "pages/index/index", "query": "" }
+      ]
+    }
+  }
+}

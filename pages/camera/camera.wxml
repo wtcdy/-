@@ -1,0 +1,108 @@
+<view class="page">
+  <!-- 顶部导航 -->
+  <view class="nav-bar">
+    <view class="nav-back" bindtap="onBack">‹</view>
+    <view class="nav-title">记录这一餐</view>
+    <view class="nav-placeholder"></view>
+  </view>
+
+  <!-- 照片区 -->
+  <view class="photo-card">
+    <view class="photo-preview" bindtap="onChooseImage">
+      <block wx:if="{{imageUrl}}">
+        <image class="photo-img" src="{{imageUrl}}" mode="aspectFill" />
+        <view class="photo-repick">↻ 重选</view>
+      </block>
+      <block wx:else>
+        <view class="photo-emoji">{{photoEmoji}}</view>
+        <view class="photo-tip">拍一张 / 从相册选</view>
+      </block>
+    </view>
+    <view class="photo-actions" wx:if="{{!imageUrl}}">
+      <view class="photo-btn" bindtap="onCamera">
+        <text class="ico">📷</text> 拍一张
+      </view>
+      <view class="photo-btn" bindtap="onAlbum">
+        <text class="ico">🖼</text> 从相册选
+      </view>
+    </view>
+  </view>
+
+  <!-- 餐次（4 选 1，必填） -->
+  <view class="section-label">
+    这一餐是？
+    <text class="required-badge">必选</text>
+  </view>
+  <view class="meal-type-row">
+    <view wx:for="{{mealTypes}}"
+          wx:key="value"
+          class="meal-type {{form.mealType === item.value ? 'active' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="onSelectMealType">
+      <view class="emoji">{{item.emoji}}</view>
+      <view class="label">{{item.label}}</view>
+      <view class="deadline">{{item.deadline}}</view>
+    </view>
+  </view>
+
+  <!-- 正餐 / 速食（2 选 1，必填） -->
+  <view class="section-label">
+    选正餐还是速食
+    <text class="required-badge">必选</text>
+  </view>
+  <view class="main-cat-row">
+    <view wx:for="{{mainCategories}}"
+          wx:key="value"
+          class="main-cat {{form.mainCategory === item.value ? 'active ' + item.value : ''}}"
+          data-value="{{item.value}}"
+          bindtap="onSelectMainCategory">
+      <view class="main-cat-emoji">{{item.emoji}}</view>
+      <view class="main-cat-label">{{item.label}}</view>
+    </view>
+  </view>
+
+  <!-- 5 大食物类别（多选 ≥1，必填） -->
+  <view class="section-label">
+    食物类别
+    <text class="required-badge">必选 · 多选</text>
+  </view>
+  <view class="food-cat-grid">
+    <view wx:for="{{foodCategories}}"
+          wx:key="value"
+          class="food-cat cat-{{item.value}} {{form.foodCats[item.value] ? 'active' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="onToggleFoodCat">
+      <view class="food-cat-emoji">{{item.emoji}}</view>
+      <view class="food-cat-name">{{item.label}}</view>
+    </view>
+  </view>
+
+  <!-- 阈值提示（仅在延时态出现） -->
+  <view class="threshold-hint" wx:if="{{thresholdHint}}">
+    <text class="threshold-hint-icon">⏰</text>
+    <view class="threshold-hint-text">
+      当前时间 <strong>{{thresholdHint.now}}</strong>，{{thresholdHint.mealLabel}}
+      <strong>{{thresholdHint.deadline}}</strong> 截止<br>
+      已<strong>延时 {{thresholdHint.lateMin}} 分钟</strong>，保存后将标识为延时卡片
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="section-label">想说点啥</view>
+  <view class="note-area">
+    <textarea class="note-input"
+              maxlength="50"
+              placeholder="50 字以内哦～"
+              placeholder-class="note-placeholder"
+              value="{{form.note}}"
+              bindinput="onNoteInput"
+              auto-height></textarea>
+    <view class="note-count">{{form.note.length}} / 50</view>
+  </view>
+
+  <!-- 提交 -->
+  <view class="submit-btn {{canSubmit ? '' : 'disabled'}}" bindtap="onSubmit">
+    ✨ 晒一晒 ✨
+  </view>
+  <view class="safe-bottom"></view>
+</view>

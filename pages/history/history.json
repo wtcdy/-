@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "历史记录",
+  "navigationStyle": "default",
+  "enablePullDownRefresh": true,
+  "usingComponents": {}
+}

@@ -1,0 +1,65 @@
+<view class="page">
+  <view class="nav-bar">
+    <view class="nav-back" bindtap="onBack">‹</view>
+    <view class="nav-title">配对干饭</view>
+    <view class="nav-placeholder"></view>
+  </view>
+
+  <!-- 顶部装饰 -->
+  <view class="bubble bubble-1"></view>
+  <view class="bubble bubble-2"></view>
+
+  <!-- Tab 切换 -->
+  <view class="pair-tab">
+    <view class="pair-tab-item {{tab === 'create' ? 'active' : ''}}" data-tab="create" bindtap="onSwitchTab">发起配对</view>
+    <view class="pair-tab-item {{tab === 'input' ? 'active' : ''}}" data-tab="input" bindtap="onSwitchTab">输入配对码</view>
+  </view>
+
+  <!-- 发起配对 -->
+  <view class="pair-content" wx:if="{{tab === 'create'}}">
+    <view class="pair-illu">
+      <view class="pair-illu-emoji">💌</view>
+      <view class="pair-illu-title">邀请你的搭子一起干饭</view>
+      <view class="pair-illu-sub">
+        配对后，双方可看到彼此的打卡记录<br>互相陪伴，好好吃饭
+      </view>
+    </view>
+
+    <!-- 配对码展示 -->
+    <view class="code-card" wx:if="{{pairCode}}">
+      <view class="code-label">你的配对码（10 分钟内有效）</view>
+      <view class="code-display">
+        <text wx:for="{{pairCodeDigits}}" wx:key="*this" class="code-digit">{{item}}</text>
+      </view>
+      <view class="code-timer">⏱ 剩余 {{remainMinutes}}:{{remainSeconds < 10 ? '0' + remainSeconds : remainSeconds}}</view>
+      <view class="code-tip">把码发给搭子，让 TA 在「输入配对码」中填入</view>
+    </view>
+
+    <view class="pair-cta" bindtap="onGenerateCode" wx:if="{{!pairCode}}">
+      ✨ 生成配对码 ✨
+    </view>
+    <view class="pair-cta ghost" bindtap="onGenerateCode" wx:else>↻ 重新生成</view>
+  </view>
+
+  <!-- 输入配对码 -->
+  <view class="pair-content" wx:if="{{tab === 'input'}}">
+    <view class="pair-illu">
+      <view class="pair-illu-emoji">🔗</view>
+      <view class="pair-illu-title">输入搭子的配对码</view>
+      <view class="pair-illu-sub">配对码是 6 位数字，10 分钟内有效</view>
+    </view>
+
+    <view class="input-row">
+      <input wx:for="{{6}}"
+             wx:key="*this"
+             class="code-input {{inputCode[index] ? 'filled' : ''}}"
+             type="number"
+             maxlength="1"
+             value="{{inputCode[index] || ''}}"
+             data-index="{{index}}"
+             bindinput="onCodeInput"
+             bindfocus="onCodeFocus"/>
+    </view>
+    <view class="pair-cta" bindtap="onJoinPair">💕 完成配对</view>
+  </view>
+</view>

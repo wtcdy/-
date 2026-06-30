@@ -1,0 +1,56 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/camera/camera",
+    "pages/pair/pair",
+    "pages/partner/partner",
+    "pages/history/history",
+    "pages/week-summary/week-summary",
+    "pages/profile/profile",
+    "pages/record-detail/record-detail",
+    "pages/edit-meal/edit-meal"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFCF7",
+    "navigationBarTitleText": "最佳干饭人",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#FFFCF7",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#9999A8",
+    "selectedColor": "#FF9FB0",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "今日",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/partner/partner",
+        "text": "搭子",
+        "iconPath": "images/tab-partner.png",
+        "selectedIconPath": "images/tab-partner-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tab-me.png",
+        "selectedIconPath": "images/tab-me-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于显示附近餐厅"
+    }
+  }
+}

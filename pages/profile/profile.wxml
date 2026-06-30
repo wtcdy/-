@@ -1,0 +1,55 @@
+<view class="page">
+  <view class="header">
+    <view class="header-bg"></view>
+    <view class="header-content">
+      <view class="avatar-wrap">
+        <image wx:if="{{userInfo.avatarUrl}}" src="{{userInfo.avatarUrl}}" class="avatar-img"/>
+        <text wx:else class="avatar-default">{{userInfo.nickName ? userInfo.nickName[0] : '我'}}</text>
+      </view>
+      <view class="user-name">{{userInfo.nickName || '干饭人'}}</view>
+      <view class="user-meta">
+        <text wx:if="{{userInfo.partnerOpenid}}">💕 已配对</text>
+        <text wx:else class="meta-mute">未配对</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 入口列表 -->
+  <view class="entry-card">
+    <view class="entry-item" bindtap="onTapWeekSummary">
+      <view class="entry-left">
+        <text class="entry-emoji">📊</text>
+        <text class="entry-name">本周总结</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+    <view class="entry-item" bindtap="onTapHistory">
+      <view class="entry-left">
+        <text class="entry-emoji">📒</text>
+        <text class="entry-name">历史记录</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+    <view class="entry-item" bindtap="onTapPartner">
+      <view class="entry-left">
+        <text class="entry-emoji">💕</text>
+        <text class="entry-name">{{userInfo.partnerOpenid ? '我的搭子' : '去配对'}}</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="entry-card">
+    <view class="entry-item" bindtap="onTapAbout">
+      <view class="entry-left">
+        <text class="entry-emoji">ℹ️</text>
+        <text class="entry-name">关于</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="footer-tip">
+    梦幻治愈 · 个人非盈利项目<br>仅供朋友间使用 · v1.0
+  </view>
+</view>

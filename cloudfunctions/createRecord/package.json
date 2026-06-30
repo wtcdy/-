@@ -1,0 +1,9 @@
+{
+  "name": "createRecord",
+  "version": "1.0.0",
+  "description": "创建打卡记录（v3.1 三必填 + 图片安全）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

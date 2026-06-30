@@ -1,0 +1,61 @@
+<view class="login-page page-enter">
+  <!-- 顶部装饰：飘浮气泡 -->
+  <view class="bubble bubble-1"></view>
+  <view class="bubble bubble-2"></view>
+  <view class="bubble bubble-3"></view>
+
+  <view class="logo-wrap">
+    <view class="logo-circle">
+      <text class="logo-emoji">🍱</text>
+    </view>
+    <view class="logo-name">最佳干饭人</view>
+    <view class="logo-slogan">和小伙伴一起，好好吃饭</view>
+  </view>
+
+  <view class="card-soft privacy-card">
+    <view class="title-sm">用微信账号登录</view>
+    <view class="subtitle-sm">我们仅获取你的昵称和头像</view>
+    <view class="bullet">
+      <text class="dot"></text>
+      <text>用于展示在你的打卡页</text>
+    </view>
+    <view class="bullet">
+      <text class="dot"></text>
+      <text>配对后，你的搭子才能看到</text>
+    </view>
+  </view>
+
+  <view class="auth-area">
+    <!-- 可选：自定义头像昵称（基础库 2.21.2+） -->
+    <view class="profile-row">
+      <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <image wx:if="{{avatarUrl}}" src="{{avatarUrl}}" class="avatar-img"></image>
+        <text wx:else class="avatar-placeholder">+</text>
+      </button>
+      <input type="nickname" placeholder="给自己起个昵称" maxlength="12"
+             bindinput="onNicknameInput" value="{{nickName}}" class="nickname-input"/>
+    </view>
+
+    <label class="agreement">
+      <checkbox-group bindchange="onAccept">
+        <checkbox value="accept" checked="{{accepted}}" color="#FF9FB0"/>
+      </checkbox-group>
+      <text>我已阅读并同意
+        <text class="link" data-type="user" bindtap="onOpenAgreement">《用户协议》</text>
+        和
+        <text class="link" data-type="privacy" bindtap="onOpenAgreement">《隐私政策》</text>
+      </text>
+    </label>
+
+    <button class="btn btn-primary btn-block login-btn"
+            bindtap="handleLogin"
+            loading="{{loading}}"
+            disabled="{{loading}}">
+      微信一键登录
+    </button>
+  </view>
+
+  <view class="footer-tip">
+    梦幻治愈 · 个人非盈利项目 · 仅供朋友间使用
+  </view>
+</view>
