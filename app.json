@@ -25,15 +25,21 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "今日"
+        "text": "今日",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
       },
       {
         "pagePath": "pages/partner/partner",
-        "text": "搭子"
+        "text": "搭子",
+        "iconPath": "images/tab-partner.png",
+        "selectedIconPath": "images/tab-partner-active.png"
       },
       {
         "pagePath": "pages/profile/profile",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "images/tab-me.png",
+        "selectedIconPath": "images/tab-me-active.png"
       }
     ]
   },
