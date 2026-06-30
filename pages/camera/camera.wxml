@@ -81,9 +81,8 @@
   <view class="threshold-hint" wx:if="{{thresholdHint}}">
     <text class="threshold-hint-icon">⏰</text>
     <view class="threshold-hint-text">
-      当前时间 <strong>{{thresholdHint.now}}</strong>，{{thresholdHint.mealLabel}}
-      <strong>{{thresholdHint.deadline}}</strong> 截止<br>
-      已<strong>延时 {{thresholdHint.lateMin}} 分钟</strong>，保存后将标识为延时卡片
+      <view>当前时间 <text class="hl">{{thresholdHint.now}}</text>，{{thresholdHint.mealLabel}} <text class="hl">{{thresholdHint.deadline}}</text> 截止</view>
+      <view>已<text class="hl">延时 {{thresholdHint.lateMin}} 分钟</text>，保存后将标识为延时卡片</view>
     </view>
   </view>
 

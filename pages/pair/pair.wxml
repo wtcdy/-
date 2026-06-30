@@ -21,7 +21,8 @@
       <view class="pair-illu-emoji">💌</view>
       <view class="pair-illu-title">邀请你的搭子一起干饭</view>
       <view class="pair-illu-sub">
-        配对后，双方可看到彼此的打卡记录<br>互相陪伴，好好吃饭
+        <view>配对后，双方可看到彼此的打卡记录</view>
+        <view>互相陪伴，好好吃饭</view>
       </view>
     </view>
 

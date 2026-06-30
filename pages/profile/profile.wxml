@@ -50,6 +50,7 @@
   </view>
 
   <view class="footer-tip">
-    梦幻治愈 · 个人非盈利项目<br>仅供朋友间使用 · v1.0
+    <view>梦幻治愈 · 个人非盈利项目</view>
+    <view>仅供朋友间使用 · v1.0</view>
   </view>
 </view>

@@ -258,7 +258,7 @@
   line-height: 1.6;
 }
 .threshold-hint-icon { font-size: 32rpx; flex-shrink: 0; }
-.threshold-hint-text strong { color: #B58A3F; font-weight: 600; }
+.threshold-hint-text .hl { color: #B58A3F; font-weight: 600; }
 
 /* 备注 */
 .note-area {
