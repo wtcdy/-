@@ -7,9 +7,7 @@
     "pages/partner/partner",
     "pages/history/history",
     "pages/week-summary/week-summary",
-    "pages/profile/profile",
-    "pages/record-detail/record-detail",
-    "pages/edit-meal/edit-meal"
+    "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -27,30 +25,18 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "今日",
-        "iconPath": "images/tab-home.png",
-        "selectedIconPath": "images/tab-home-active.png"
+        "text": "今日"
       },
       {
         "pagePath": "pages/partner/partner",
-        "text": "搭子",
-        "iconPath": "images/tab-partner.png",
-        "selectedIconPath": "images/tab-partner-active.png"
+        "text": "搭子"
       },
       {
         "pagePath": "pages/profile/profile",
-        "text": "我的",
-        "iconPath": "images/tab-me.png",
-        "selectedIconPath": "images/tab-me-active.png"
+        "text": "我的"
       }
     ]
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents",
-  "permission": {
-    "scope.userLocation": {
-      "desc": "用于显示附近餐厅"
-    }
-  }
+  "sitemapLocation": "sitemap.json"
 }
