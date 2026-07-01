@@ -115,8 +115,8 @@ Page({
   onTapMealSlot(e) {
     const { slot } = e.currentTarget.dataset;
     if (slot.record) {
-      // 跳详情
-      wx.navigateTo({ url: `/pages/record-detail/record-detail?id=${slot.record._id}` });
+      // 已打卡：跳到历史页（record-detail 待补，暂用 history）
+      wx.navigateTo({ url: `/pages/history/history?date=${slot.record.date}` });
     } else {
       // 跳拍照（预填 mealType）
       wx.navigateTo({ url: `/pages/camera/camera?mealType=${slot.value}` });

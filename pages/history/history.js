@@ -96,8 +96,10 @@ Page({
   },
 
   onTapRecord(e) {
+    // record-detail 待补，暂时提示
     const id = e.currentTarget.dataset.id;
-    wx.navigateTo({ url: `/pages/record-detail/record-detail?id=${id}` });
+    app.toast('记录详情开发中');
+    console.log('[history] record tap:', id);
   },
 
   onTapFab() {

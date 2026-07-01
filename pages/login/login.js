@@ -41,14 +41,13 @@ Page({
 
   // 跳转协议
   onOpenAgreement(e) {
+    // about 页面待补：先 toast 提示，协议内容从云存储 agreements/ 读取
     const type = e.currentTarget.dataset.type;
-    const url = type === 'user'
-      ? '/pages/about/about?type=user'
-      : '/pages/about/about?type=privacy';
-    wx.navigateTo({ url, fail: () => {
-      // about 页面还没做 → 兜底 toast
-      app.toast('协议详情开发中');
-    }});
+    const label = type === 'user' ? '用户协议' : '隐私政策';
+    app.toast(`${label}内容请见云存储 agreements/ 目录`);
+
+    // 调试：控制台输出当前生效版本
+    console.log(`[agreement] 查看 ${label}, 详见 config/app.js → agreement.${type === 'user' ? 'userAgreement' : 'privacyPolicy'}`);
   },
 
   // 一键登录
