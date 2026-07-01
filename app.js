@@ -1,6 +1,7 @@
 // app.js
 // 引入 Mock 模块（本地环境/测试号 启用）
 const mock = require('./utils/mock.js');
+const appConfig = require('./config/app.js');
 
 App({
   globalData: {
@@ -8,13 +9,18 @@ App({
     userInfo: null,
     partnerOpenid: '',
     systemInfo: null,
-    // 当前用户配对状态（避免每次查 DB）
     paired: false,
-    // ===== 本地 Mock 模式开关 =====
-    // 1. 测试号（无 AppID）时无法开通云开发，必须开启
-    // 2. 不想部署云函数时也可开启，所有"云函数"走本地 mock
-    // 3. 控制台执行 getApp().globalData.mockMode = true 动态切换
-    mockMode: true,   // <-- 本地体验先开 true，部署云开发后改 false
+
+    // 模式与配置（来自 config/app.js）
+    mode: appConfig.mode,           // 'mock' | 'cloud'
+    cloudEnv: appConfig.cloudEnv,   // 云开发环境 ID
+    appName: appConfig.appName,
+    version: appConfig.version,
+    config: appConfig,              // 完整配置
+
+    // 兼容旧字段
+    mockMode: appConfig.mode === 'mock',
+
     // 梦幻治愈主题色（马卡龙）
     theme: {
       pink: '#FFD3DA',
@@ -28,7 +34,8 @@ App({
       bg: '#FFFCF7',
       card: '#FFFFFF'
     },
-    // 5 大食物类别配色（与 v3.1 设计稿一致）
+
+    // 5 大食物类别配色
     foodCat: {
       staple:  { gradient: 'linear-gradient(135deg, #FFF4D6, #FFE7A0)', border: '#F0C95C', fg: '#8A6B1E' },
       veggie:  { gradient: 'linear-gradient(135deg, #D6EBDC, #C6EBC9)', border: '#7BC094', fg: '#3F7A56' },
@@ -39,12 +46,13 @@ App({
   },
 
   onLaunch() {
-    // 1. 微信云开发初始化（仅在 mockMode = false 时执行）
-    if (!this.globalData.mockMode && wx.cloud) {
+    // 1. 模式判断
+    if (this.globalData.mode === 'cloud' && wx.cloud) {
       wx.cloud.init({
-        env: 'ganfan-prod-xxx',   // TODO: 真实环境 ID（部署云开发后填写）
+        env: this.globalData.cloudEnv,
         traceUser: true
       });
+      console.log(`[ganfan] 云开发模式已启用 env=${this.globalData.cloudEnv}`);
     } else {
       console.log('[ganfan] Mock 模式已启用，云函数走本地模拟');
     }
@@ -66,13 +74,32 @@ App({
   },
 
   /**
+   * 运行时切换模式（控制台可调用 getApp().setMode('cloud')）
+   * @param {'mock'|'cloud'} mode
+   */
+  setMode(mode) {
+    if (mode !== 'mock' && mode !== 'cloud') {
+      console.error('[ganfan] 无效模式:', mode);
+      return false;
+    }
+    this.globalData.mode = mode;
+    this.globalData.mockMode = mode === 'mock';
+    // 重启云开发初始化
+    if (mode === 'cloud' && wx.cloud) {
+      wx.cloud.init({ env: this.globalData.cloudEnv, traceUser: true });
+    }
+    console.log(`[ganfan] 模式已切换为: ${mode}`);
+    return true;
+  },
+
+  /**
    * 统一云函数调用封装
    * Mock 模式：走本地 mock 模拟数据
    * 云开发模式：走 wx.cloud.callFunction
    * @returns {Promise<{success: boolean, code?: string, message?: string, data?: any}>}
    */
   async call(name, data = {}) {
-    if (this.globalData.mockMode) {
+    if (this.globalData.mode === 'mock') {
       return mock.mockFn(name, data);
     }
     try {
